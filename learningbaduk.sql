@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.23, for Win64 (x86_64)
 --
--- Host: localhost    Database: learningbadukdb
+-- Host: 127.0.0.1    Database: learningbadukdb
 -- ------------------------------------------------------
 -- Server version	8.0.23
 
@@ -33,7 +33,7 @@ CREATE TABLE `board` (
   `boardHit` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`boardId`),
   KEY `FK_board_userId_user_userId` (`userId`),
-  CONSTRAINT `FK_board_userId_user_userId` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `FK_board_userId_user_userId` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -84,10 +84,10 @@ CREATE TABLE `comment` (
   `userId` varchar(45) NOT NULL,
   `boardId` int NOT NULL,
   PRIMARY KEY (`commentId`),
-  KEY `FK_comment_userId_user_userId` (`userId`),
   KEY `FK_comment_boardId_board_boardId` (`boardId`),
-  CONSTRAINT `FK_comment_boardId_board_boardId` FOREIGN KEY (`boardId`) REFERENCES `board` (`boardId`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `FK_comment_userId_user_userId` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  KEY `FK_comment_userId_user_userId` (`userId`),
+  CONSTRAINT `FK_comment_boardId_board_boardId` FOREIGN KEY (`boardId`) REFERENCES `board` (`boardId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_comment_userId_user_userId` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -113,10 +113,10 @@ CREATE TABLE `dislikes` (
   `boardId` int NOT NULL,
   `userId` varchar(45) NOT NULL,
   PRIMARY KEY (`dislikeId`),
-  KEY `userId` (`userId`),
-  KEY `boardId` (`boardId`),
-  CONSTRAINT `dislikes_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`),
-  CONSTRAINT `dislikes_ibfk_2` FOREIGN KEY (`boardId`) REFERENCES `board` (`boardId`)
+  KEY `dislikes_ibfk_1` (`userId`),
+  KEY `dislikes_ibfk_2` (`boardId`),
+  CONSTRAINT `dislikes_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `dislikes_ibfk_2` FOREIGN KEY (`boardId`) REFERENCES `board` (`boardId`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -141,10 +141,10 @@ CREATE TABLE `likes` (
   `boardId` int NOT NULL,
   `userId` varchar(45) NOT NULL,
   PRIMARY KEY (`likeId`),
-  KEY `FK_like_userId_user_userId` (`userId`),
   KEY `FK_like_boardId_board_boardId` (`boardId`),
-  CONSTRAINT `FK_like_boardId_board_boardId` FOREIGN KEY (`boardId`) REFERENCES `board` (`boardId`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `FK_like_userId_user_userId` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  KEY `FK_like_userId_user_userId` (`userId`),
+  CONSTRAINT `FK_like_boardId_board_boardId` FOREIGN KEY (`boardId`) REFERENCES `board` (`boardId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_like_userId_user_userId` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -172,7 +172,7 @@ CREATE TABLE `myboard` (
   `userId` varchar(45) NOT NULL,
   PRIMARY KEY (`myboardId`),
   KEY `FK_myboard_userId_user_userId` (`userId`),
-  CONSTRAINT `FK_myboard_userId_user_userId` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `FK_myboard_userId_user_userId` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -183,6 +183,31 @@ CREATE TABLE `myboard` (
 LOCK TABLES `myboard` WRITE;
 /*!40000 ALTER TABLE `myboard` DISABLE KEYS */;
 /*!40000 ALTER TABLE `myboard` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `role`
+--
+
+DROP TABLE IF EXISTS `role`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `role` (
+  `userId` varchar(45) NOT NULL,
+  `userRole` varchar(45) NOT NULL DEFAULT 'member',
+  PRIMARY KEY (`userId`),
+  CONSTRAINT `FK_user-role` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `role`
+--
+
+LOCK TABLES `role` WRITE;
+/*!40000 ALTER TABLE `role` DISABLE KEYS */;
+INSERT INTO `role` VALUES ('userId1','admin');
+/*!40000 ALTER TABLE `role` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -199,7 +224,6 @@ CREATE TABLE `user` (
   `userEmail` varchar(45) NOT NULL,
   `userProfileImg` varchar(80) DEFAULT NULL,
   `userReport` int NOT NULL DEFAULT '0',
-  `userRole` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -210,7 +234,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('userId1','userPassword1','userNickname1','userEmail1',NULL,0,NULL);
+INSERT INTO `user` VALUES ('userId1','userPassword1','userNickname1','userEmail1',NULL,0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -241,4 +265,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-11 20:26:07
+-- Dump completed on 2022-05-15 22:54:40
