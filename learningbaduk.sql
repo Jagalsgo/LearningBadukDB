@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `board`;
 CREATE TABLE `board` (
   `boardId` int NOT NULL AUTO_INCREMENT,
   `boardTitle` varchar(45) NOT NULL,
-  `boardContent` varchar(45) NOT NULL,
+  `boardContent` varchar(2048) NOT NULL,
   `boardDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `boardCategory` varchar(45) NOT NULL,
   `boardReport` int NOT NULL DEFAULT '0',
@@ -34,7 +34,7 @@ CREATE TABLE `board` (
   PRIMARY KEY (`boardId`),
   KEY `FK_board_userId_user_userId` (`userId`),
   CONSTRAINT `FK_board_userId_user_userId` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +43,7 @@ CREATE TABLE `board` (
 
 LOCK TABLES `board` WRITE;
 /*!40000 ALTER TABLE `board` DISABLE KEYS */;
-INSERT INTO `board` VALUES (1,'endGame1','endGame1','2022-05-10 19:17:30','endGame',0,'userId1',0);
+INSERT INTO `board` VALUES (1,'endGame1','endGame12','2022-05-10 19:17:30','endGameBoard',0,'userId1',10),(10,'dsvds','njnvsdlv','2022-05-26 20:46:16','endGameBoard',0,'userId1',1),(11,'kdjsv','nljsdvbk','2022-05-27 20:53:09','endGameBoard',0,'userId4',1),(12,'n;ankvj','novirnk','2022-05-27 20:55:37','endGameBoard',0,'userId1',1);
 /*!40000 ALTER TABLE `board` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -79,7 +79,7 @@ DROP TABLE IF EXISTS `comment`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `comment` (
   `commentId` int NOT NULL AUTO_INCREMENT,
-  `commentContent` varchar(45) NOT NULL,
+  `commentContent` varchar(2048) NOT NULL,
   `commentDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `userId` varchar(45) NOT NULL,
   `boardId` int NOT NULL,
@@ -88,7 +88,7 @@ CREATE TABLE `comment` (
   KEY `FK_comment_userId_user_userId` (`userId`),
   CONSTRAINT `FK_comment_boardId_board_boardId` FOREIGN KEY (`boardId`) REFERENCES `board` (`boardId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_comment_userId_user_userId` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,7 +97,7 @@ CREATE TABLE `comment` (
 
 LOCK TABLES `comment` WRITE;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
-INSERT INTO `comment` VALUES (1,'endGameComment1','2022-05-10 19:18:01','userId1',1);
+INSERT INTO `comment` VALUES (1,'endGameComment1','2022-05-10 19:18:01','userId1',1),(2,'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.','2022-05-18 20:28:17','userId1',1);
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -117,7 +117,7 @@ CREATE TABLE `dislikes` (
   KEY `dislikes_ibfk_2` (`boardId`),
   CONSTRAINT `dislikes_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `dislikes_ibfk_2` FOREIGN KEY (`boardId`) REFERENCES `board` (`boardId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -126,6 +126,7 @@ CREATE TABLE `dislikes` (
 
 LOCK TABLES `dislikes` WRITE;
 /*!40000 ALTER TABLE `dislikes` DISABLE KEYS */;
+INSERT INTO `dislikes` VALUES (1,10,'userId3'),(2,10,'userId4'),(3,11,'userId3'),(4,12,'userId3');
 /*!40000 ALTER TABLE `dislikes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -145,7 +146,7 @@ CREATE TABLE `likes` (
   KEY `FK_like_userId_user_userId` (`userId`),
   CONSTRAINT `FK_like_boardId_board_boardId` FOREIGN KEY (`boardId`) REFERENCES `board` (`boardId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_like_userId_user_userId` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -154,6 +155,7 @@ CREATE TABLE `likes` (
 
 LOCK TABLES `likes` WRITE;
 /*!40000 ALTER TABLE `likes` DISABLE KEYS */;
+INSERT INTO `likes` VALUES (1,1,'userId1'),(2,1,'userId2'),(3,1,'userId2'),(4,1,'userId3'),(5,1,'userId4'),(6,11,'userId1');
 /*!40000 ALTER TABLE `likes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -193,10 +195,8 @@ DROP TABLE IF EXISTS `role`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `role` (
-  `userId` varchar(45) NOT NULL,
-  `userRole` varchar(45) NOT NULL DEFAULT 'member',
-  PRIMARY KEY (`userId`),
-  CONSTRAINT `FK_user-role` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
+  `userRole` varchar(45) NOT NULL,
+  PRIMARY KEY (`userRole`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -206,7 +206,7 @@ CREATE TABLE `role` (
 
 LOCK TABLES `role` WRITE;
 /*!40000 ALTER TABLE `role` DISABLE KEYS */;
-INSERT INTO `role` VALUES ('userId1','admin');
+INSERT INTO `role` VALUES ('admin'),('member');
 /*!40000 ALTER TABLE `role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -224,7 +224,10 @@ CREATE TABLE `user` (
   `userEmail` varchar(45) NOT NULL,
   `userProfileImg` varchar(80) DEFAULT NULL,
   `userReport` int NOT NULL DEFAULT '0',
-  PRIMARY KEY (`userId`)
+  `userRole` varchar(45) NOT NULL DEFAULT 'member',
+  PRIMARY KEY (`userId`),
+  KEY `FK_role_idx` (`userRole`),
+  CONSTRAINT `FK_userRole` FOREIGN KEY (`userRole`) REFERENCES `role` (`userRole`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -234,7 +237,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('userId1','userPassword1','userNickname1','userEmail1',NULL,0);
+INSERT INTO `user` VALUES ('lsvdndf','password1!','nilsdnivdf','iwjf@naver.com',NULL,0,'member'),('sdav','asdvnljnds1!','oivdsvu','uwehff@nsdvi.com',NULL,0,'member'),('userId1','userPassword1','userNickname1','userEmail1',NULL,0,'admin'),('userId2','password1!','nickname2','user@naver.com',NULL,0,'member'),('userId3','userPassword3','nininini','iewf@naver.com',NULL,0,'member'),('userId4','userPassword4','nlsdnv','jlnwev@naver.com',NULL,0,'member');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -265,4 +268,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-15 22:54:40
+-- Dump completed on 2022-05-27 21:03:33
