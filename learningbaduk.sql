@@ -34,7 +34,7 @@ CREATE TABLE `board` (
   PRIMARY KEY (`boardId`),
   KEY `FK_board_userId_user_userId` (`userId`),
   CONSTRAINT `FK_board_userId_user_userId` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +43,7 @@ CREATE TABLE `board` (
 
 LOCK TABLES `board` WRITE;
 /*!40000 ALTER TABLE `board` DISABLE KEYS */;
-INSERT INTO `board` VALUES (1,'endGame1','endGame12','2022-05-10 19:17:30','endGameBoard',0,'userId1',10),(10,'dsvds','njnvsdlv','2022-05-26 20:46:16','endGameBoard',0,'userId1',1),(11,'kdjsv','nljsdvbk','2022-05-27 20:53:09','endGameBoard',0,'userId4',1),(12,'n;ankvj','novirnk','2022-05-27 20:55:37','endGameBoard',0,'userId1',1);
+INSERT INTO `board` VALUES (29,'aa','<p>aa</p>','2022-06-05 15:50:58','endGameBoard',0,'a',1),(30,'sdv','<p><img class=\"image_resized\" style=\"width:27.4%;\" src=\"/img/e0bb2fab-0eb1-41fd-9979-d35b09014cf7\"></p>','2022-06-05 16:03:52','endGameBoard',0,'a',1);
 /*!40000 ALTER TABLE `board` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -88,7 +88,7 @@ CREATE TABLE `comment` (
   KEY `FK_comment_userId_user_userId` (`userId`),
   CONSTRAINT `FK_comment_boardId_board_boardId` FOREIGN KEY (`boardId`) REFERENCES `board` (`boardId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_comment_userId_user_userId` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,7 +97,6 @@ CREATE TABLE `comment` (
 
 LOCK TABLES `comment` WRITE;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
-INSERT INTO `comment` VALUES (1,'endGameComment1','2022-05-10 19:18:01','userId1',1),(2,'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.','2022-05-18 20:28:17','userId1',1);
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -126,7 +125,6 @@ CREATE TABLE `dislikes` (
 
 LOCK TABLES `dislikes` WRITE;
 /*!40000 ALTER TABLE `dislikes` DISABLE KEYS */;
-INSERT INTO `dislikes` VALUES (1,10,'userId3'),(2,10,'userId4'),(3,11,'userId3'),(4,12,'userId3');
 /*!40000 ALTER TABLE `dislikes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -155,7 +153,6 @@ CREATE TABLE `likes` (
 
 LOCK TABLES `likes` WRITE;
 /*!40000 ALTER TABLE `likes` DISABLE KEYS */;
-INSERT INTO `likes` VALUES (1,1,'userId1'),(2,1,'userId2'),(3,1,'userId2'),(4,1,'userId3'),(5,1,'userId4'),(6,11,'userId1');
 /*!40000 ALTER TABLE `likes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -222,7 +219,6 @@ CREATE TABLE `user` (
   `userPassword` varchar(45) NOT NULL,
   `userNickname` varchar(45) NOT NULL,
   `userEmail` varchar(45) NOT NULL,
-  `userProfileImg` varchar(80) DEFAULT NULL,
   `userReport` int NOT NULL DEFAULT '0',
   `userRole` varchar(45) NOT NULL DEFAULT 'member',
   PRIMARY KEY (`userId`),
@@ -237,8 +233,36 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('lsvdndf','password1!','nilsdnivdf','iwjf@naver.com',NULL,0,'member'),('sdav','asdvnljnds1!','oivdsvu','uwehff@nsdvi.com',NULL,0,'member'),('userId1','userPassword1','userNickname1','userEmail1',NULL,0,'admin'),('userId2','password1!','nickname2','user@naver.com',NULL,0,'member'),('userId3','userPassword3','nininini','iewf@naver.com',NULL,0,'member'),('userId4','userPassword4','nlsdnv','jlnwev@naver.com',NULL,0,'member');
+INSERT INTO `user` VALUES ('a','a','a','a',0,'member'),('userId1','userPassword1!','useruser','user@naver.com',0,'member'),('userId2','password1!','nickname2','user@naver.com',0,'member'),('userId3','userPassword3','nininini','iewf@naver.com',0,'member'),('userId4','userPassword4','nlsdnv','jlnwev@naver.com',0,'member');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `userprofileimg`
+--
+
+DROP TABLE IF EXISTS `userprofileimg`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `userprofileimg` (
+  `userProfileImgId` int NOT NULL AUTO_INCREMENT,
+  `imgName` varchar(150) DEFAULT NULL,
+  `imgPath` varchar(300) DEFAULT NULL,
+  `userId` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`userProfileImgId`),
+  KEY `FK_userId_profileImg_idx` (`userId`),
+  CONSTRAINT `FK_userId_profileImg` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `userprofileimg`
+--
+
+LOCK TABLES `userprofileimg` WRITE;
+/*!40000 ALTER TABLE `userprofileimg` DISABLE KEYS */;
+INSERT INTO `userprofileimg` VALUES (9,'5606c5a4-6bde-4d63-be26-a6b469fbbf39','/profileImg/5606c5a4-6bde-4d63-be26-a6b469fbbf39','a');
+/*!40000 ALTER TABLE `userprofileimg` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -254,7 +278,7 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`namix`@`%` SQL SECURITY DEFINER */
-/*!50001 VIEW `boardview` AS select `board`.`boardId` AS `boardId`,`board`.`boardTitle` AS `boardTitle`,`board`.`boardContent` AS `boardContent`,`board`.`boardDate` AS `boardDate`,`board`.`boardCategory` AS `boardCategory`,`board`.`boardReport` AS `boardReport`,`board`.`userId` AS `userId`,`board`.`boardHit` AS `boardHit`,(select count(0) from `comment` where (`comment`.`boardId` = `board`.`boardId`)) AS `commentCount`,(select count(0) from `likes` where (`likes`.`boardId` = `board`.`boardId`)) AS `likeCount`,(select count(0) from `dislikes` where (`dislikes`.`boardId` = `board`.`boardId`)) AS `dislikeCount`,(select `user`.`userNickname` from `user` where (`user`.`userId` = 'userId1')) AS `userNickname` from `board` */;
+/*!50001 VIEW `boardview` AS select `board`.`boardId` AS `boardId`,`board`.`boardTitle` AS `boardTitle`,`board`.`boardContent` AS `boardContent`,`board`.`boardDate` AS `boardDate`,`board`.`boardCategory` AS `boardCategory`,`board`.`boardReport` AS `boardReport`,`board`.`userId` AS `userId`,`board`.`boardHit` AS `boardHit`,(select count(0) from `comment` where (`comment`.`boardId` = `board`.`boardId`)) AS `commentCount`,(select count(0) from `likes` where (`likes`.`boardId` = `board`.`boardId`)) AS `likeCount`,(select count(0) from `dislikes` where (`dislikes`.`boardId` = `board`.`boardId`)) AS `dislikeCount`,(select `user`.`userNickname` from `user` where (`user`.`userId` = `board`.`userId`)) AS `userNickname` from `board` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -268,4 +292,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-27 21:03:33
+-- Dump completed on 2022-06-05 20:39:51
