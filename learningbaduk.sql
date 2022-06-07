@@ -185,15 +185,15 @@ DROP TABLE IF EXISTS `myboard`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `myboard` (
-  `myboardId` int NOT NULL AUTO_INCREMENT,
-  `myboardTitle` varchar(45) NOT NULL,
-  `myboardContent` varchar(45) NOT NULL,
-  `myboardDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `myBoardId` int NOT NULL AUTO_INCREMENT,
+  `myBoardTitle` varchar(45) NOT NULL,
+  `myBoardContent` varchar(2048) NOT NULL,
+  `myBoardDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `userId` varchar(45) NOT NULL,
-  PRIMARY KEY (`myboardId`),
+  PRIMARY KEY (`myBoardId`),
   KEY `FK_myboard_userId_user_userId` (`userId`),
   CONSTRAINT `FK_myboard_userId_user_userId` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -202,6 +202,7 @@ CREATE TABLE `myboard` (
 
 LOCK TABLES `myboard` WRITE;
 /*!40000 ALTER TABLE `myboard` DISABLE KEYS */;
+INSERT INTO `myboard` VALUES (1,'a','a','2022-06-07 16:55:36','a'),(2,'image','<p>mmm<img class=\"image_resized\" style=\"width:27.43%;\" src=\"/img/6bf14ba8-a265-45f4-817a-552636c54060\"></p>','2022-06-07 19:35:54','a');
 /*!40000 ALTER TABLE `myboard` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -331,4 +332,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-06 19:30:59
+-- Dump completed on 2022-06-07 20:53:25
