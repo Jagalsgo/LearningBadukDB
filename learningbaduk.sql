@@ -33,8 +33,10 @@ CREATE TABLE `board` (
   `boardHit` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`boardId`),
   KEY `FK_board_userId_user_userId` (`userId`),
-  CONSTRAINT `FK_board_userId_user_userId` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `FK_boardCategory_idx` (`boardCategory`),
+  CONSTRAINT `FK_board_userId_user_userId` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_boardCategory` FOREIGN KEY (`boardCategory`) REFERENCES `category` (`boardCategory`) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +45,7 @@ CREATE TABLE `board` (
 
 LOCK TABLES `board` WRITE;
 /*!40000 ALTER TABLE `board` DISABLE KEYS */;
-INSERT INTO `board` VALUES (29,'aa','<p>aa</p>','2022-06-05 15:50:58','endGameBoard',0,'a',1),(30,'sdv','<p><img class=\"image_resized\" style=\"width:27.4%;\" src=\"/img/e0bb2fab-0eb1-41fd-9979-d35b09014cf7\"></p>','2022-06-05 16:03:52','endGameBoard',0,'a',1),(31,'mkaldsvn','<p>lknskva</p>','2022-06-06 18:45:02','endGameBoard',0,'userId4',1);
+INSERT INTO `board` VALUES (30,'sdv','<p><img class=\"image_resized\" style=\"width:27.4%;\" src=\"/img/e0bb2fab-0eb1-41fd-9979-d35b09014cf7\"></p>','2022-06-05 16:03:52','endGameBoard',0,'a',2),(31,'mkaldsvn','<p>lknskva</p>','2022-06-06 18:45:02','endGameBoard',2,'userId4',2),(37,'1','<p>1</p>','2022-06-12 16:26:03','endGameBoard',0,'a',1),(38,'2','<p>2</p>','2022-06-12 16:26:22','endGameBoard',0,'a',1),(39,'3dsf','<p>3</p>','2022-06-12 16:26:33','endGameBoard',0,'a',1),(40,'4','<p>4</p>','2022-06-12 16:26:56','endGameBoard',0,'a',0),(41,'4','<p>4</p>','2022-06-12 16:26:56','endGameBoard',0,'a',1),(42,'5','<p>5</p>','2022-06-12 16:27:05','endGameBoard',0,'a',1),(48,'2222','<p>2222</p>','2022-06-12 16:43:09','endGameBoard',0,'a',1),(49,'2222hkhskd','<p>jkbdsvjkb2222</p>','2022-06-12 16:43:17','endGameBoard',0,'a',1),(50,'test','<p>teests</p>','2022-06-12 19:46:54','endGameBoard',0,'a',1);
 /*!40000 ALTER TABLE `board` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -72,6 +74,29 @@ SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = @saved_cs_client;
 
 --
+-- Table structure for table `category`
+--
+
+DROP TABLE IF EXISTS `category`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `category` (
+  `boardCategory` varchar(45) NOT NULL,
+  PRIMARY KEY (`boardCategory`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `category`
+--
+
+LOCK TABLES `category` WRITE;
+/*!40000 ALTER TABLE `category` DISABLE KEYS */;
+INSERT INTO `category` VALUES ('endGameBoard'),('freeBoard'),('noticeBoard'),('openingBoard'),('patternBoard'),('quetionBoard'),('ruleBoard'),('scheduleBoard');
+/*!40000 ALTER TABLE `category` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `comment`
 --
 
@@ -89,7 +114,7 @@ CREATE TABLE `comment` (
   KEY `FK_comment_userId_user_userId` (`userId`),
   CONSTRAINT `FK_comment_boardId_board_boardId` FOREIGN KEY (`boardId`) REFERENCES `board` (`boardId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_comment_userId_user_userId` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -98,7 +123,7 @@ CREATE TABLE `comment` (
 
 LOCK TABLES `comment` WRITE;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
-INSERT INTO `comment` VALUES (21,'huig','2022-06-06 18:28:52','userId4',30),(22,'a','2022-06-06 19:25:23','a',31);
+INSERT INTO `comment` VALUES (22,'a','2022-06-06 19:25:23','a',31),(23,'sdvnl','2022-06-11 14:51:43','a',31),(27,'디스','2022-06-12 20:35:25','a',30);
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -202,7 +227,7 @@ CREATE TABLE `myboard` (
 
 LOCK TABLES `myboard` WRITE;
 /*!40000 ALTER TABLE `myboard` DISABLE KEYS */;
-INSERT INTO `myboard` VALUES (1,'a','a','2022-06-07 16:55:36','a'),(2,'image','<p>mmm<img class=\"image_resized\" style=\"width:27.43%;\" src=\"/img/6bf14ba8-a265-45f4-817a-552636c54060\"></p>','2022-06-07 19:35:54','a');
+INSERT INTO `myboard` VALUES (2,'image !!!','<p>mmm<img class=\"image_resized\" style=\"width:27.43%;\" src=\"/img/6bf14ba8-a265-45f4-817a-552636c54060\"></p>','2022-06-07 19:35:54','a');
 /*!40000 ALTER TABLE `myboard` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -243,6 +268,7 @@ CREATE TABLE `user` (
   `userEmail` varchar(45) NOT NULL,
   `userReport` int NOT NULL DEFAULT '0',
   `userRole` varchar(45) NOT NULL DEFAULT 'member',
+  `userDate` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`userId`),
   KEY `FK_role_idx` (`userRole`),
   CONSTRAINT `FK_userRole` FOREIGN KEY (`userRole`) REFERENCES `role` (`userRole`)
@@ -255,7 +281,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('a','a','a','a',0,'member'),('userId1','userPassword1!','useruser','user@naver.com',0,'member'),('userId2','password1!','nickname2','user@naver.com',0,'member'),('userId3','userPassword3','nininini','iewf@naver.com',0,'member'),('userId4','userPassword4','nlsdnv','jlnwev@naver.com',0,'member');
+INSERT INTO `user` VALUES ('a','a','a','a',1,'member','2022-06-13 13:18:45'),('userId1','userPassword1!','useruser','user@naver.com',2,'member','2022-06-14 13:18:45'),('userId2','password1!','nickname2','user@naver.com',0,'member','2022-06-15 13:18:45'),('userId3','userPassword3','nininini','iewf@naver.com',0,'member','2022-06-16 13:18:45'),('userId4','userPassword4','nlsdnv','jlnwev@naver.com',0,'member','2022-06-17 13:18:45');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -332,4 +358,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-07 20:53:25
+-- Dump completed on 2022-06-13 20:24:51
