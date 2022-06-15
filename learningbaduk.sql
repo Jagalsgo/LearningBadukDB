@@ -250,7 +250,7 @@ CREATE TABLE `role` (
 
 LOCK TABLES `role` WRITE;
 /*!40000 ALTER TABLE `role` DISABLE KEYS */;
-INSERT INTO `role` VALUES ('admin'),('member');
+INSERT INTO `role` VALUES ('ROLE_ADMIN'),('ROLE_MEMBER');
 /*!40000 ALTER TABLE `role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -263,11 +263,11 @@ DROP TABLE IF EXISTS `user`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
   `userId` varchar(45) NOT NULL,
-  `userPassword` varchar(45) NOT NULL,
+  `userPassword` varchar(2048) NOT NULL,
   `userNickname` varchar(45) NOT NULL,
   `userEmail` varchar(45) NOT NULL,
   `userReport` int NOT NULL DEFAULT '0',
-  `userRole` varchar(45) NOT NULL DEFAULT 'member',
+  `userRole` varchar(45) NOT NULL DEFAULT 'ROLE_MEMBER',
   `userDate` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`userId`),
   KEY `FK_role_idx` (`userRole`),
@@ -281,7 +281,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('a','a','a','a',1,'member','2022-06-13 13:18:45'),('userId1','userPassword1!','useruser','user@naver.com',2,'member','2022-06-14 13:18:45'),('userId2','password1!','nickname2','user@naver.com',0,'member','2022-06-15 13:18:45'),('userId3','userPassword3','nininini','iewf@naver.com',0,'member','2022-06-16 13:18:45'),('userId4','userPassword4','nlsdnv','jlnwev@naver.com',0,'member','2022-06-17 13:18:45');
+INSERT INTO `user` VALUES ('a','a','a','a',1,'ROLE_MEMBER','2022-06-13 13:18:45'),('idid12','$2a$10$hWwNE/lS0L3fdtIk7efwW.X4l6gpW7u0762veT/vBPMS.mJoCmt8q','nini12','dnls@naver.com',0,'ROLE_ADMIN','2022-06-15 19:06:37'),('userId1','userPassword1!','useruser','user@naver.com',2,'ROLE_MEMBER','2022-06-14 13:18:45'),('userId2','password1!','nickname2','user@naver.com',0,'ROLE_MEMBER','2022-06-15 13:18:45'),('userId3','userPassword3','nininini','iewf@naver.com',0,'ROLE_MEMBER','2022-06-16 13:18:45'),('userId4','userPassword4','nlsdnv','jlnwev@naver.com',0,'ROLE_MEMBER','2022-06-17 13:18:45');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -358,4 +358,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-13 20:24:51
+-- Dump completed on 2022-06-15 21:10:42
