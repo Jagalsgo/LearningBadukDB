@@ -36,7 +36,7 @@ CREATE TABLE `board` (
   KEY `FK_boardCategory_idx` (`boardCategory`),
   CONSTRAINT `FK_board_userId_user_userId` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_boardCategory` FOREIGN KEY (`boardCategory`) REFERENCES `category` (`boardCategory`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,7 +45,7 @@ CREATE TABLE `board` (
 
 LOCK TABLES `board` WRITE;
 /*!40000 ALTER TABLE `board` DISABLE KEYS */;
-INSERT INTO `board` VALUES (30,'sdv','<p><img class=\"image_resized\" style=\"width:27.4%;\" src=\"/img/e0bb2fab-0eb1-41fd-9979-d35b09014cf7\"></p>','2022-06-05 16:03:52','endGameBoard',0,'a',2),(31,'mkaldsvn','<p>lknskva</p>','2022-06-06 18:45:02','endGameBoard',2,'userId4',2),(37,'1','<p>1</p>','2022-06-12 16:26:03','endGameBoard',0,'a',1),(38,'2','<p>2</p>','2022-06-12 16:26:22','endGameBoard',0,'a',1),(39,'3dsf','<p>3</p>','2022-06-12 16:26:33','endGameBoard',0,'a',1),(40,'4','<p>4</p>','2022-06-12 16:26:56','endGameBoard',0,'a',0),(41,'4','<p>4</p>','2022-06-12 16:26:56','endGameBoard',0,'a',1),(42,'5','<p>5</p>','2022-06-12 16:27:05','endGameBoard',0,'a',1),(48,'2222','<p>2222</p>','2022-06-12 16:43:09','endGameBoard',0,'a',1),(49,'2222hkhskd','<p>jkbdsvjkb2222</p>','2022-06-12 16:43:17','endGameBoard',0,'a',1),(50,'test','<p>teests</p>','2022-06-12 19:46:54','endGameBoard',0,'a',1);
+INSERT INTO `board` VALUES (30,'sdv','<p><img class=\"image_resized\" style=\"width:27.4%;\" src=\"/img/e0bb2fab-0eb1-41fd-9979-d35b09014cf7\"></p>','2022-06-05 16:03:52','endGameBoard',0,'a',2),(31,'mkaldsvn','<p>lknskva</p>','2022-06-06 18:45:02','endGameBoard',0,'userId4',2),(37,'1','<p>1</p>','2022-06-12 16:26:03','endGameBoard',0,'a',1),(38,'2','<p>2</p>','2022-06-12 16:26:22','endGameBoard',0,'a',1),(39,'3dsf','<p>3</p>','2022-06-12 16:26:33','endGameBoard',0,'a',1),(40,'4','<p>4</p>','2022-06-12 16:26:56','endGameBoard',0,'a',0),(41,'4','<p>4</p>','2022-06-12 16:26:56','endGameBoard',0,'a',1),(42,'5','<p>5</p>','2022-06-12 16:27:05','endGameBoard',0,'a',1),(48,'2222','<p>2222</p>','2022-06-12 16:43:09','endGameBoard',0,'a',1),(49,'2222hkhskd','<p>jkbdsvjkb2222</p>','2022-06-12 16:43:17','endGameBoard',0,'a',1),(50,'test','<p>teests</p>','2022-06-12 19:46:54','endGameBoard',0,'a',2),(51,'test dfsdfklj','<p>teststset</p>','2022-06-22 20:03:28','endGameBoard',0,'idid12',1);
 /*!40000 ALTER TABLE `board` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -114,7 +114,7 @@ CREATE TABLE `comment` (
   KEY `FK_comment_userId_user_userId` (`userId`),
   CONSTRAINT `FK_comment_boardId_board_boardId` FOREIGN KEY (`boardId`) REFERENCES `board` (`boardId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_comment_userId_user_userId` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -123,7 +123,7 @@ CREATE TABLE `comment` (
 
 LOCK TABLES `comment` WRITE;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
-INSERT INTO `comment` VALUES (22,'a','2022-06-06 19:25:23','a',31),(23,'sdvnl','2022-06-11 14:51:43','a',31),(27,'디스','2022-06-12 20:35:25','a',30);
+INSERT INTO `comment` VALUES (22,'a','2022-06-06 19:25:23','a',31),(23,'sdvnl','2022-06-11 14:51:43','a',31),(27,'디스','2022-06-12 20:35:25','a',30),(31,'njksv','2022-06-17 13:57:11','idid12',30);
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -232,6 +232,33 @@ INSERT INTO `myboard` VALUES (2,'image !!!','<p>mmm<img class=\"image_resized\" 
 UNLOCK TABLES;
 
 --
+-- Table structure for table `reportlist`
+--
+
+DROP TABLE IF EXISTS `reportlist`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `reportlist` (
+  `reportId` int NOT NULL AUTO_INCREMENT,
+  `reportContent` varchar(2048) NOT NULL,
+  `reportedUser` varchar(45) NOT NULL,
+  `reporter` varchar(45) NOT NULL,
+  `reportType` varchar(45) NOT NULL,
+  `reportDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`reportId`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `reportlist`
+--
+
+LOCK TABLES `reportlist` WRITE;
+/*!40000 ALTER TABLE `reportlist` DISABLE KEYS */;
+/*!40000 ALTER TABLE `reportlist` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `role`
 --
 
@@ -269,6 +296,7 @@ CREATE TABLE `user` (
   `userReport` int NOT NULL DEFAULT '0',
   `userRole` varchar(45) NOT NULL DEFAULT 'ROLE_MEMBER',
   `userDate` datetime DEFAULT CURRENT_TIMESTAMP,
+  `userProfileImg` varchar(300) DEFAULT NULL,
   PRIMARY KEY (`userId`),
   KEY `FK_role_idx` (`userRole`),
   CONSTRAINT `FK_userRole` FOREIGN KEY (`userRole`) REFERENCES `role` (`userRole`)
@@ -281,7 +309,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('a','a','a','a',1,'ROLE_MEMBER','2022-06-13 13:18:45'),('idid12','$2a$10$hWwNE/lS0L3fdtIk7efwW.X4l6gpW7u0762veT/vBPMS.mJoCmt8q','nini12','dnls@naver.com',0,'ROLE_ADMIN','2022-06-15 19:06:37'),('userId1','userPassword1!','useruser','user@naver.com',2,'ROLE_MEMBER','2022-06-14 13:18:45'),('userId2','password1!','nickname2','user@naver.com',0,'ROLE_MEMBER','2022-06-15 13:18:45'),('userId3','userPassword3','nininini','iewf@naver.com',0,'ROLE_MEMBER','2022-06-16 13:18:45'),('userId4','userPassword4','nlsdnv','jlnwev@naver.com',0,'ROLE_MEMBER','2022-06-17 13:18:45');
+INSERT INTO `user` VALUES ('a','a','a','a',0,'ROLE_MEMBER','2022-06-13 13:18:45',NULL),('idid11','$2a$10$4HTRArbrmrQzvqmkJAYh7uX34Da.4TQPg0RLrqjnIlNsZ5xiMTJQG','nindslfn','nls@naver.com',0,'ROLE_MEMBER','2022-06-18 18:42:03',NULL),('idid12','$2a$10$vAGg80UGyTSW3MO83xQ90OTdzz6k0LWgcFLd4LYl497xt3eSmByaq','nini12','dnls@naver.com',0,'ROLE_ADMIN','2022-06-15 19:06:37','/profileImg/df59acd0-5e8c-4b4b-9375-545b873ee92e'),('userId1','userPassword1!','useruser','user@naver.com',0,'ROLE_MEMBER','2022-06-14 13:18:45',NULL),('userId2','password1!','nickname2','user@naver.com',0,'ROLE_MEMBER','2022-06-15 13:18:45',NULL),('userId3','userPassword3','nininini','iewf@naver.com',0,'ROLE_MEMBER','2022-06-16 13:18:45',NULL),('userId4','userPassword4','nlsdnv','jlnwev@naver.com',0,'ROLE_MEMBER','2022-06-17 13:18:45',NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -300,7 +328,7 @@ CREATE TABLE `userprofileimg` (
   PRIMARY KEY (`userProfileImgId`),
   KEY `FK_userId_profileImg_idx` (`userId`),
   CONSTRAINT `FK_userId_profileImg` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -309,7 +337,7 @@ CREATE TABLE `userprofileimg` (
 
 LOCK TABLES `userprofileimg` WRITE;
 /*!40000 ALTER TABLE `userprofileimg` DISABLE KEYS */;
-INSERT INTO `userprofileimg` VALUES (9,'5606c5a4-6bde-4d63-be26-a6b469fbbf39','/profileImg/5606c5a4-6bde-4d63-be26-a6b469fbbf39','a');
+INSERT INTO `userprofileimg` VALUES (31,'df59acd0-5e8c-4b4b-9375-545b873ee92e','/profileImg/df59acd0-5e8c-4b4b-9375-545b873ee92e','idid12');
 /*!40000 ALTER TABLE `userprofileimg` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -358,4 +386,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-15 21:10:42
+-- Dump completed on 2022-06-22 21:40:56
