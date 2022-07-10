@@ -230,6 +230,33 @@ LOCK TABLES `dislikes` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `emailtoken`
+--
+
+DROP TABLE IF EXISTS `emailtoken`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `emailtoken` (
+  `emailTokenId` int NOT NULL AUTO_INCREMENT,
+  `email` varchar(45) NOT NULL,
+  `expired` tinyint(1) NOT NULL DEFAULT '0',
+  `expiredDate` datetime DEFAULT NULL,
+  `authToken` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`emailTokenId`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `emailtoken`
+--
+
+LOCK TABLES `emailtoken` WRITE;
+/*!40000 ALTER TABLE `emailtoken` DISABLE KEYS */;
+INSERT INTO `emailtoken` VALUES (18,'ehdwns6781@naver.com',0,NULL,'d38367d0-2553-4877-889d-70f286cea7ff'),(19,'ehdwns6781@naver.com',0,NULL,'555b5905-db2c-4326-b9d6-0411d15b36e4'),(20,'ehdwns6781@naver.com',1,NULL,'15e9798f-02c7-4e00-b309-bcee2517b591'),(21,'ehdwns6781@naver.com',1,NULL,'c370288d-c680-481d-b465-29308ed1ab9e'),(22,'ehdwns6781@naver.com',1,NULL,'dfc548ec-f0b6-446a-88bc-340b8d4d5574'),(23,'ehdwns6781@naver.com',1,'2022-07-09 15:50:10','0ed3f600-8cdb-408e-9481-1222e0b18784'),(24,'dongjun6767@gmail.com',1,'2022-07-10 13:57:02','1b017c55-de76-447a-ac18-d7518943d16f');
+/*!40000 ALTER TABLE `emailtoken` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `likes`
 --
 
@@ -409,6 +436,7 @@ CREATE TABLE `user` (
   `userRole` varchar(45) NOT NULL DEFAULT 'ROLE_MEMBER',
   `userDate` datetime DEFAULT CURRENT_TIMESTAMP,
   `userProfileImg` varchar(300) DEFAULT NULL,
+  `emailAuth` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`userId`),
   KEY `FK_role_idx` (`userRole`),
   CONSTRAINT `FK_userRole` FOREIGN KEY (`userRole`) REFERENCES `role` (`userRole`)
@@ -421,7 +449,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('a','a','a','a',1,'ROLE_MEMBER','2022-06-13 13:18:45',NULL),('idid11','$2a$10$4HTRArbrmrQzvqmkJAYh7uX34Da.4TQPg0RLrqjnIlNsZ5xiMTJQG','nindslfn','nls@naver.com',0,'ROLE_MEMBER','2022-06-18 18:42:03',NULL),('idid12','$2a$10$vAGg80UGyTSW3MO83xQ90OTdzz6k0LWgcFLd4LYl497xt3eSmByaq','nini12','dnls@naver.com',0,'ROLE_ADMIN','2022-06-15 19:06:37','/profileImg/df59acd0-5e8c-4b4b-9375-545b873ee92e'),('userId1','userPassword1!','useruser','user@naver.com',0,'ROLE_MEMBER','2022-06-14 13:18:45',NULL),('userId2','password1!','nickname2','user@naver.com',0,'ROLE_MEMBER','2022-06-15 13:18:45',NULL),('userId3','userPassword3','nininini','iewf@naver.com',0,'ROLE_MEMBER','2022-06-16 13:18:45',NULL),('userId4','userPassword4','nlsdnv','jlnwev@naver.com',0,'ROLE_MEMBER','2022-06-17 13:18:45',NULL);
+INSERT INTO `user` VALUES ('a','a','a','a',1,'ROLE_MEMBER','2022-06-13 13:18:45',NULL,0),('idid11','$2a$10$4HTRArbrmrQzvqmkJAYh7uX34Da.4TQPg0RLrqjnIlNsZ5xiMTJQG','nindslfn','nls@naver.com',0,'ROLE_MEMBER','2022-06-18 18:42:03',NULL,0),('idid12','aDYunbl9I0','nini12','dnls@naver.com',0,'ROLE_ADMIN','2022-06-15 19:06:37','/profileImg/df59acd0-5e8c-4b4b-9375-545b873ee92e',1),('idman1','$2a$10$ucLgRtpfefxwbkaaovemKuRrkW4bOR5NT2szoibHQ5knEWEoaPnv.','manman1','ehdwns6781@naver.com',0,'ROLE_MEMBER','2022-07-09 14:03:13',NULL,0),('idman2','$2a$10$6eJBZcmk.ZmK4c0M9.MYTuoU9qr1.vhg/BppcnsknqcCPcCnFncna','manman2','ehdwns6781@naver.com',0,'ROLE_MEMBER','2022-07-09 14:14:47',NULL,0),('idman3','$2a$10$FgAty.Q1njLRho4Ih.1wJOnBLlNbaCORohcmipOwdSnYlBt.UOzZO','manman3','ehdwns6781@naver.com',0,'ROLE_MEMBER','2022-07-09 14:53:46',NULL,1),('idman4','$2a$10$YBzX8TzxBGxkJEPQzLKp6uFblOGotB5OJZkHNYSzQdQGwCGt/L8M6','manman4','ehdwns6781@naver.com',0,'ROLE_MEMBER','2022-07-09 14:59:05',NULL,1),('idman5','$2a$10$FyROpAmlXljejZ19WWqnguKizeptnTyeR1TrvB8K2B.tjgm2ybZZa','manman5','ehdwns6781@naver.com',0,'ROLE_MEMBER','2022-07-09 15:14:15',NULL,1),('idman6','$2a$10$xYgJstccfoAp7dMbscK2PeXwrZEFxi95CN1yX9lP.j/Odrd9oLkMy','manman6','ehdwns6781@naver.com',0,'ROLE_MEMBER','2022-07-09 15:49:54',NULL,1),('skull1','$2a$10$wS3FYKmt6k6FFrTj9PIOsukGNRGfGdKyr95KnFhe0qaEGr/vsXYMq','skull','dongjun6767@gmail.com',0,'ROLE_MEMBER','2022-07-09 21:07:19',NULL,1),('userId1','userPassword1!','useruser','user@naver.com',0,'ROLE_MEMBER','2022-06-14 13:18:45',NULL,0),('userId2','password1!','nickname2','user@naver.com',0,'ROLE_MEMBER','2022-06-15 13:18:45',NULL,0),('userId3','userPassword3','nininini','iewf@naver.com',0,'ROLE_MEMBER','2022-06-16 13:18:45',NULL,0),('userId4','userPassword4','nlsdnv','jlnwev@naver.com',0,'ROLE_MEMBER','2022-06-17 13:18:45',NULL,0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -534,4 +562,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-07-04 21:14:17
+-- Dump completed on 2022-07-10 16:22:52
