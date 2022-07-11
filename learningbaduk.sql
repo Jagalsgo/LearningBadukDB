@@ -38,7 +38,7 @@ CREATE TABLE `alarm` (
   CONSTRAINT `FK_boardId` FOREIGN KEY (`boardId`) REFERENCES `board` (`boardId`),
   CONSTRAINT `FK_commentId` FOREIGN KEY (`commentId`) REFERENCES `comment` (`commentId`),
   CONSTRAINT `FK_messageId` FOREIGN KEY (`messageId`) REFERENCES `message` (`messageId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -47,6 +47,7 @@ CREATE TABLE `alarm` (
 
 LOCK TABLES `alarm` WRITE;
 /*!40000 ALTER TABLE `alarm` DISABLE KEYS */;
+INSERT INTO `alarm` VALUES (42,'comment','idid12','idman5','2022-07-11 15:16:58',53,98,NULL),(43,'comment','idid12','idman5','2022-07-11 17:23:23',55,99,NULL),(44,'comment','idid12','idman5','2022-07-11 17:23:29',55,100,NULL),(45,'comment','idid12','idman5','2022-07-11 17:23:32',55,101,NULL),(46,'comment','idid12','idman5','2022-07-11 17:23:39',55,102,NULL),(47,'comment','idid12','idman5','2022-07-11 17:23:45',55,103,NULL),(48,'comment','idid12','idman5','2022-07-11 20:44:21',53,104,NULL),(49,'comment','idid12','idman5','2022-07-11 20:45:40',53,105,NULL);
 /*!40000 ALTER TABLE `alarm` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -165,12 +166,16 @@ CREATE TABLE `comment` (
   `commentDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `userId` varchar(45) NOT NULL,
   `boardId` int NOT NULL,
+  `deleted` tinyint(1) NOT NULL DEFAULT '0',
+  `deletedDate` datetime DEFAULT NULL,
+  `commentDepth` int NOT NULL DEFAULT '0',
+  `parentId` int DEFAULT NULL,
   PRIMARY KEY (`commentId`),
   KEY `FK_comment_boardId_board_boardId` (`boardId`),
   KEY `FK_comment_userId_user_userId` (`userId`),
   CONSTRAINT `FK_comment_boardId_board_boardId` FOREIGN KEY (`boardId`) REFERENCES `board` (`boardId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_comment_userId_user_userId` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=106 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -179,7 +184,7 @@ CREATE TABLE `comment` (
 
 LOCK TABLES `comment` WRITE;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
-INSERT INTO `comment` VALUES (22,'a','2022-06-06 19:25:23','a',31),(23,'sdvnl','2022-06-11 14:51:43','a',31),(27,'디스','2022-06-12 20:35:25','a',30),(31,'njksv','2022-06-17 13:57:11','idid12',30),(32,'websocket comment test','2022-06-27 14:10:00','idid11',53),(33,'반가워요','2022-06-27 14:18:57','idid11',53),(34,'하지마','2022-06-27 14:29:06','idid11',53),(35,'dlksnv','2022-06-27 14:31:11','idid11',53),(36,'tt','2022-06-27 14:42:36','idid11',53),(37,'얀녕하세요','2022-06-27 15:18:14','idid11',53),(38,'adsf','2022-06-27 15:36:36','idid11',53),(39,'ii','2022-06-27 16:00:22','idid11',53),(40,'a','2022-06-27 16:08:14','idid11',53),(41,'nsldv','2022-06-27 16:09:39','idid11',53),(42,'sdv','2022-06-27 16:15:59','idid11',53),(43,'nlsdvns','2022-06-27 16:16:10','idid11',53),(44,'sdvln','2022-06-27 16:17:45','idid11',53),(45,'sdv','2022-06-27 16:17:49','idid11',53),(46,'aa','2022-06-27 16:17:58','idid11',53),(47,'df','2022-06-27 16:18:01','idid11',53),(48,'jkvds','2022-06-27 16:28:28','idid11',53),(49,'nkjvs','2022-06-27 16:30:39','idid11',53),(50,'sdvsd','2022-06-27 16:32:16','idid11',53),(51,'tired','2022-06-27 18:51:49','idid11',53),(52,'sdvbjk','2022-06-27 19:01:05','idid11',53),(53,'thanks','2022-06-27 19:04:36','idid11',53),(54,'p-type','2022-06-27 20:52:26','idid11',53),(55,'늦어싿는','2022-06-27 20:55:37','idid11',53),(56,'ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ','2022-06-27 21:03:25','idid11',53),(57,'ㄴ파','2022-06-27 21:06:37','idid11',53),(58,'hello','2022-06-27 21:08:36','idid11',53),(59,'please','2022-06-28 15:20:12','idid12',53),(60,'pub','2022-06-28 15:21:30','idid12',53),(61,'lskdjlnvd','2022-06-28 15:22:16','idid12',53),(62,'is','2022-06-28 15:24:37','idid12',53),(63,'ahffk','2022-06-28 15:26:01','idid12',53),(64,'들통','2022-06-28 15:27:14','idid11',53),(65,'끝나던 말던','2022-06-28 15:44:58','idid11',53),(66,'사라라라ㅏ라','2022-06-28 15:48:31','idid11',53),(67,'리리리','2022-06-28 15:49:36','idid11',53),(68,'소켓이라고','2022-06-28 15:49:52','idid11',53),(69,'나 그대 아주','2022-06-28 16:56:29','idid11',53),(70,'rmfo','2022-06-28 16:56:38','idid12',53),(71,'echo','2022-06-29 15:03:04','idid11',53),(72,'test','2022-06-29 15:56:25','idid11',53),(73,'store','2022-06-29 19:56:04','idid11',53),(74,'happy','2022-06-29 20:07:13','idid11',53),(75,'지금처럼만','2022-06-29 20:11:17','idid11',53),(76,'sdv','2022-06-29 20:14:13','idid11',53),(77,'go','2022-06-29 20:26:07','idid11',53),(78,'sdvbk','2022-06-29 20:32:25','idid11',53),(79,'aaa','2022-06-29 20:38:04','idid11',53),(80,'ssisissssisissssi','2022-06-29 20:51:08','idid11',53),(81,'fuck','2022-06-30 10:53:09','idid12',53),(82,'aa','2022-06-30 10:56:14','idid12',53),(83,'aadfs','2022-06-30 10:59:43','idid12',53),(84,'gogo','2022-06-30 14:20:44','idid12',53),(85,'hey','2022-06-30 14:23:02','idid12',53),(86,'good','2022-06-30 14:25:31','idid12',53),(87,'heyhey','2022-06-30 14:27:25','idid11',53),(88,'okok mino','2022-06-30 18:45:56','idid11',53),(89,'a momo','2022-06-30 18:46:52','idid11',53),(90,'you','2022-06-30 18:58:02','idid11',53),(91,'feel','2022-07-02 19:20:44','idid11',53),(92,'hey man','2022-07-04 14:55:31','idid11',55),(93,'hey hey','2022-07-04 14:55:40','idid11',55),(94,'처음이야 내가','2022-07-04 16:01:55','idid11',55),(95,'드디어 내가','2022-07-04 16:02:01','idid11',55),(96,'빠져버렸어어어','2022-07-04 16:02:14','idid11',55),(97,'sdvlks','2022-07-04 16:36:30','idid11',55);
+INSERT INTO `comment` VALUES (22,'a','2022-06-06 19:25:23','a',31,0,NULL,0,NULL),(23,'sdvnl','2022-06-11 14:51:43','a',31,0,NULL,0,NULL),(27,'디스','2022-06-12 20:35:25','a',30,0,NULL,0,NULL),(31,'njksv','2022-06-17 13:57:11','idid12',30,0,NULL,0,NULL),(32,'websocket comment test','2022-06-27 14:10:00','idid11',53,0,NULL,0,NULL),(33,'반가워요','2022-06-27 14:18:57','idid11',53,0,NULL,0,NULL),(34,'하지마','2022-06-27 14:29:06','idid11',53,0,NULL,0,NULL),(35,'dlksnv','2022-06-27 14:31:11','idid11',53,0,NULL,0,NULL),(36,'tt','2022-06-27 14:42:36','idid11',53,0,NULL,0,NULL),(37,'얀녕하세요','2022-06-27 15:18:14','idid11',53,0,NULL,0,NULL),(38,'adsf','2022-06-27 15:36:36','idid11',53,0,NULL,0,NULL),(39,'ii','2022-06-27 16:00:22','idid11',53,0,NULL,0,NULL),(40,'a','2022-06-27 16:08:14','idid11',53,0,NULL,0,NULL),(41,'nsldv','2022-06-27 16:09:39','idid11',53,0,NULL,0,NULL),(42,'sdv','2022-06-27 16:15:59','idid11',53,0,NULL,0,NULL),(43,'nlsdvns','2022-06-27 16:16:10','idid11',53,0,NULL,0,NULL),(44,'sdvln','2022-06-27 16:17:45','idid11',53,0,NULL,0,NULL),(45,'sdv','2022-06-27 16:17:49','idid11',53,0,NULL,0,NULL),(46,'aa','2022-06-27 16:17:58','idid11',53,0,NULL,0,NULL),(47,'df','2022-06-27 16:18:01','idid11',53,0,NULL,0,NULL),(48,'jkvds','2022-06-27 16:28:28','idid11',53,0,NULL,0,NULL),(49,'nkjvs','2022-06-27 16:30:39','idid11',53,0,NULL,0,NULL),(50,'sdvsd','2022-06-27 16:32:16','idid11',53,0,NULL,0,NULL),(51,'tired','2022-06-27 18:51:49','idid11',53,0,NULL,0,NULL),(52,'sdvbjk','2022-06-27 19:01:05','idid11',53,0,NULL,0,NULL),(53,'thanks','2022-06-27 19:04:36','idid11',53,0,NULL,0,NULL),(54,'p-type','2022-06-27 20:52:26','idid11',53,0,NULL,0,NULL),(55,'늦어싿는','2022-06-27 20:55:37','idid11',53,0,NULL,0,NULL),(56,'ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ','2022-06-27 21:03:25','idid11',53,0,NULL,0,NULL),(57,'ㄴ파','2022-06-27 21:06:37','idid11',53,0,NULL,0,NULL),(58,'hello','2022-06-27 21:08:36','idid11',53,0,NULL,0,NULL),(59,'please','2022-06-28 15:20:12','idid12',53,0,NULL,0,NULL),(60,'pub','2022-06-28 15:21:30','idid12',53,0,NULL,0,NULL),(61,'lskdjlnvd','2022-06-28 15:22:16','idid12',53,0,NULL,0,NULL),(62,'is','2022-06-28 15:24:37','idid12',53,0,NULL,0,NULL),(63,'ahffk','2022-06-28 15:26:01','idid12',53,0,NULL,0,NULL),(64,'들통','2022-06-28 15:27:14','idid11',53,0,NULL,0,NULL),(65,'끝나던 말던','2022-06-28 15:44:58','idid11',53,0,NULL,0,NULL),(66,'사라라라ㅏ라','2022-06-28 15:48:31','idid11',53,0,NULL,0,NULL),(67,'리리리','2022-06-28 15:49:36','idid11',53,0,NULL,0,NULL),(68,'소켓이라고','2022-06-28 15:49:52','idid11',53,0,NULL,0,NULL),(69,'나 그대 아주','2022-06-28 16:56:29','idid11',53,0,NULL,0,NULL),(70,'rmfo','2022-06-28 16:56:38','idid12',53,0,NULL,0,NULL),(71,'echo','2022-06-29 15:03:04','idid11',53,0,NULL,0,NULL),(72,'test','2022-06-29 15:56:25','idid11',53,0,NULL,0,NULL),(73,'store','2022-06-29 19:56:04','idid11',53,0,NULL,0,NULL),(74,'happy','2022-06-29 20:07:13','idid11',53,0,NULL,0,NULL),(75,'지금처럼만','2022-06-29 20:11:17','idid11',53,0,NULL,0,NULL),(76,'sdv','2022-06-29 20:14:13','idid11',53,0,NULL,0,NULL),(77,'go','2022-06-29 20:26:07','idid11',53,0,NULL,0,NULL),(78,'sdvbk','2022-06-29 20:32:25','idid11',53,0,NULL,0,NULL),(79,'aaa','2022-06-29 20:38:04','idid11',53,0,NULL,0,NULL),(80,'ssisissssisissssi','2022-06-29 20:51:08','idid11',53,0,NULL,0,NULL),(81,'fuck','2022-06-30 10:53:09','idid12',53,0,NULL,0,NULL),(82,'aa','2022-06-30 10:56:14','idid12',53,0,NULL,0,NULL),(83,'aadfs','2022-06-30 10:59:43','idid12',53,0,NULL,0,NULL),(84,'gogo','2022-06-30 14:20:44','idid12',53,0,NULL,0,NULL),(85,'hey','2022-06-30 14:23:02','idid12',53,0,NULL,0,NULL),(86,'good','2022-06-30 14:25:31','idid12',53,0,NULL,0,NULL),(87,'heyhey','2022-06-30 14:27:25','idid11',53,0,NULL,0,NULL),(88,'okok mino','2022-06-30 18:45:56','idid11',53,0,NULL,0,NULL),(89,'a momo','2022-06-30 18:46:52','idid11',53,0,NULL,0,NULL),(90,'you','2022-06-30 18:58:02','idid11',53,0,NULL,0,NULL),(91,'feel','2022-07-02 19:20:44','idid11',53,0,NULL,0,NULL),(92,'hey man','2022-07-04 14:55:31','idid11',55,0,NULL,0,NULL),(93,'hey hey','2022-07-04 14:55:40','idid11',55,0,NULL,0,NULL),(94,'처음이야 내가','2022-07-04 16:01:55','idid11',55,0,NULL,0,NULL),(95,'드디어 내가','2022-07-04 16:02:01','idid11',55,0,NULL,0,NULL),(96,'빠져버렸어어어','2022-07-04 16:02:14','idid11',55,0,NULL,0,NULL),(97,'sdvlks','2022-07-04 16:36:30','idid11',55,0,NULL,0,NULL),(98,'돈이 모이면 쇼핑몰로','2022-07-11 15:16:58','idman5',53,0,NULL,0,NULL),(99,'skull','2022-07-11 17:23:23','idman5',55,0,NULL,0,NULL),(100,'a','2022-07-11 17:23:29','idman5',55,0,NULL,0,NULL),(101,'d','2022-07-11 17:23:32','idman5',55,0,NULL,0,NULL),(102,'skull','2022-07-11 17:23:39','idman5',55,0,NULL,0,NULL),(103,'hey','2022-07-11 17:23:45','idman5',55,0,NULL,0,NULL),(104,'모두','2022-07-11 20:44:21','idman5',53,0,NULL,0,NULL),(105,'내가','2022-07-11 20:45:40','idman5',53,0,NULL,0,NULL);
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -197,6 +202,10 @@ SET @saved_cs_client     = @@character_set_client;
  1 AS `commentDate`,
  1 AS `userId`,
  1 AS `boardId`,
+ 1 AS `deleted`,
+ 1 AS `deletedDate`,
+ 1 AS `commentDepth`,
+ 1 AS `parentId`,
  1 AS `imgPath`,
  1 AS `userNickname`*/;
 SET character_set_client = @saved_cs_client;
@@ -512,7 +521,7 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`namix`@`%` SQL SECURITY DEFINER */
-/*!50001 VIEW `boardview` AS select `board`.`boardId` AS `boardId`,`board`.`boardTitle` AS `boardTitle`,`board`.`boardContent` AS `boardContent`,`board`.`boardDate` AS `boardDate`,`board`.`boardCategory` AS `boardCategory`,`board`.`boardReport` AS `boardReport`,`board`.`userId` AS `userId`,`board`.`boardHit` AS `boardHit`,(select count(0) from `comment` where (`comment`.`boardId` = `board`.`boardId`)) AS `commentCount`,(select count(0) from `likes` where (`likes`.`boardId` = `board`.`boardId`)) AS `likeCount`,(select count(0) from `dislikes` where (`dislikes`.`boardId` = `board`.`boardId`)) AS `dislikeCount`,(select `user`.`userNickname` from `user` where (`user`.`userId` = `board`.`userId`)) AS `userNickname`,(select `userprofileimg`.`imgPath` from `userprofileimg` where (`userprofileimg`.`userId` = `board`.`userId`)) AS `imgPath` from `board` */;
+/*!50001 VIEW `boardview` AS select `board`.`boardId` AS `boardId`,`board`.`boardTitle` AS `boardTitle`,`board`.`boardContent` AS `boardContent`,`board`.`boardDate` AS `boardDate`,`board`.`boardCategory` AS `boardCategory`,`board`.`boardReport` AS `boardReport`,`board`.`userId` AS `userId`,`board`.`boardHit` AS `boardHit`,(select count(0) from `comment` where ((`comment`.`boardId` = `board`.`boardId`) and (`comment`.`deleted` = 0))) AS `commentCount`,(select count(0) from `likes` where (`likes`.`boardId` = `board`.`boardId`)) AS `likeCount`,(select count(0) from `dislikes` where (`dislikes`.`boardId` = `board`.`boardId`)) AS `dislikeCount`,(select `user`.`userNickname` from `user` where (`user`.`userId` = `board`.`userId`)) AS `userNickname`,(select `userprofileimg`.`imgPath` from `userprofileimg` where (`userprofileimg`.`userId` = `board`.`userId`)) AS `imgPath` from `board` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -530,7 +539,7 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`namix`@`%` SQL SECURITY DEFINER */
-/*!50001 VIEW `commentview` AS select `comment`.`commentId` AS `commentId`,`comment`.`commentContent` AS `commentContent`,`comment`.`commentDate` AS `commentDate`,`comment`.`userId` AS `userId`,`comment`.`boardId` AS `boardId`,(select `userprofileimg`.`imgPath` from `userprofileimg` where (`userprofileimg`.`userId` = `comment`.`userId`)) AS `imgPath`,(select `user`.`userNickname` from `user` where (`user`.`userId` = `comment`.`userId`)) AS `userNickname` from `comment` */;
+/*!50001 VIEW `commentview` AS select `comment`.`commentId` AS `commentId`,`comment`.`commentContent` AS `commentContent`,`comment`.`commentDate` AS `commentDate`,`comment`.`userId` AS `userId`,`comment`.`boardId` AS `boardId`,`comment`.`deleted` AS `deleted`,`comment`.`deletedDate` AS `deletedDate`,`comment`.`commentDepth` AS `commentDepth`,`comment`.`parentId` AS `parentId`,(select `userprofileimg`.`imgPath` from `userprofileimg` where (`userprofileimg`.`userId` = `comment`.`userId`)) AS `imgPath`,(select `user`.`userNickname` from `user` where (`user`.`userId` = `comment`.`userId`)) AS `userNickname` from `comment` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -562,4 +571,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-07-10 16:22:52
+-- Dump completed on 2022-07-11 20:46:35
